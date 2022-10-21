@@ -40,13 +40,15 @@ public class BookController {
      */
     @GetMapping(value = "/books/{id}")
     public BookDto getBookById(@PathVariable Long id) {
-        Optional<Book> book = bs.findById(id);
+        Optional<Book> optional = bs.findById(id);
 
-        if (book.isPresent()) {
+        if (optional.isPresent()) {
+            Book book = optional.get();
+
             BookDto dto = new BookDto();
-            dto.title = book.get().title;
-            dto.author = book.get().author;
-            dto.year = book.get().year;
+            dto.title = book.title;
+            dto.author = book.author;
+            dto.year = book.year;
 
             return dto;
         }
